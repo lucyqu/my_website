@@ -19,7 +19,7 @@ disqusShortname = ""
   # CSS class.
 
   # Provide your metadata here.
-  name = "Lucy"
+  name = "Lucy Qu"
   description = "Master student from LBS"
 
   # Link custom assets relative to /static
@@ -92,41 +92,29 @@ disqusShortname = ""
     # Display your showcases here.
     
     [[params.tiles.showcase]]
-      title = "Data Wrangling and Visualisation"
-      subtitle = "To clean, transform, and plot data"
+      title = "Resume and Cover Letter"
+      subtitle = "Investment Banking, Sales and Trading, Private Banking"
       image = "pic01.jpg"
       url = "blogs/aliquam"
 
     [[params.tiles.showcase]]
-      title = "Hypothesis Testing"
-      subtitle = "To test for null hypothesis"
+      title = "Case Studies and Models"
+      subtitle = "Equity Valuation, Stock Pitches, Thematic Investing"
       image = "pic02.jpg"
       url = "blogs/tempus"
 
     [[params.tiles.showcase]]
-      title = "Confidence Interval"
-      subtitle = "To construct reasonable range for predictors"
+      title = "Academic Papers"
+      subtitle = "Economics, Finance, Statistics"
       image = "pic03.jpg"
       url = "blogs/magna"
 
     [[params.tiles.showcase]]
-      title = "Regression Model"
-      subtitle = "To quantify the relationship between variables"
+      title = "Data Analytics "
+      subtitle = "R workfiles"
       image = "pic04.jpg"
       url = "blogs/ipsum"
 
-    [[params.tiles.showcase]]
-      title = "TBC"
-      subtitle = "..."
-      image = "pic05.jpg"
-      url = "blogs/ipsum"
-
-    [[params.tiles.showcase]]
-      title = "TBC"
-      subtitle = "..."
-      image = "pic06.jpg"
-      url = "blogs/ipsum"
-    # You can make more showcases by copy and pasting the code above
 
   [params.blog]
     # All blogs defined in their own files. You can find example blogs
@@ -139,8 +127,7 @@ disqusShortname = ""
   [params.two]
     enable = true
     title = "Why I Created This Website?"
-    subtitle = """If is the very first time in my life that I learnt to write R codes. The whole process, I would say, is extremely difficult. 
-    I would love to demonstrate my learning process as well as some summaries I have derived from daily practice in this website.Hopefully, this will faciliate my revision process later as well as encourge those new enterers to start from scratch."""
+    subtitle = """I am a final year master student major in Finance coming from Asia and am currently looking for full time opportunities in both London and Hong Kong. I am creating this website to showcase some of my previous projects in both primary and secondary markets. I am sophisticated in fundamental research, finanical modelling, and pitching. Welcome any of your comments in my projects here! """
     buttonText = "Get Started"
     url = "blogs"
 
