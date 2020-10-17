@@ -1,7 +1,7 @@
 # Site settings
 baseURL = "https://lucy-qu-portfolio.netlify.app/"
 languageCode = "en-us"
-title = "Portfolio website for Lucy Qu"
+title = "Portfolio Website for Lucy Qu"
 theme = "forty"
 
 # Enter your tracking code to enable Google Analytics
@@ -81,9 +81,9 @@ disqusShortname = ""
   [params.banner]
     # To change the background image on the homepage banner, replace 'banner.jpg' in
     # the 'static/img' folder.
-    title = "Welcome to Lucy's personal Website"
-    subtitle = "You could visit multiple R workfiles here "
-    buttonText = "Get Started"
+    title = "Welcome to Lucy's Personal Website"
+    subtitle = "You could know more about me Here "
+    buttonText = "Let's Start"
 
 
   # Tiles Section
