@@ -94,7 +94,7 @@ disqusShortname = ""
     [[params.tiles.showcase]]
       title = "Resume and Cover Letter"
       subtitle = "Investment Banking, Sales and Trading, Private Banking"
-      image = "pic01.jpg"
+      image = "pic08.jpg"
       url = "blogs/aliquam"
 
     [[params.tiles.showcase]]
