@@ -11,8 +11,9 @@ library(here)
 
 ```{r , echo=FALSE, out.width="45%"}
 
+knitr::include_graphics(here::here("./content/projects/cv and cover letter/cv.jpg"), error = FALSE)
 
-knitr::include_graphics(here::here("cv.jpg"), error = FALSE)
+
 
 ```
 
@@ -27,6 +28,6 @@ knitr::include_graphics(here::here("cv.jpg"), error = FALSE)
 ```{r , echo=FALSE, out.width="45%"}
 
 
-knitr::include_graphics(here::here("cover.png"), error = FALSE)
+knitr::include_graphics(here::here("./content/projects/cv and cover letter/cover.png"), error = FALSE)
 
 ```
