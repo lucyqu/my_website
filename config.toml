@@ -101,7 +101,7 @@ disqusShortname = ""
       title = "Case Studies and Models"
       subtitle = "Equity Valuation, Stock Pitches, Thematic Investing"
       image = "pic02.jpg"
-      url = "projects/financial cases and models"
+      url = "projects/financial cases and models/index的副本.html"
 
     [[params.tiles.showcase]]
       title = "Academic Papers"
