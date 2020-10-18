@@ -95,7 +95,7 @@ disqusShortname = ""
       title = "Resume and Cover Letter"
       subtitle = "Investment Banking, Sales and Trading, Private Banking"
       image = "pic08.jpg"
-      url = "file:///Users/lucyqu/Desktop/Investment/my_website/content/projects/cv%20and%20cover%20letter/index.html"
+      url = "projects/cv and cover letter"
 
     [[params.tiles.showcase]]
       title = "Case Studies and Models"
