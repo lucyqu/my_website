@@ -104,7 +104,7 @@ disqusShortname = ""
       url = "projects/financial cases and models/index的副本.html"
 
     [[params.tiles.showcase]]
-      title = "Academic Papers"
+      title = "Academic Papers - Multivaraite Regression Using R"
       subtitle = "Economics, Finance, Statistics"
       image = "pic03.jpg"
       url = "projects/academic papers/Group3.html"
