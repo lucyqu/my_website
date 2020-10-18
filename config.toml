@@ -98,7 +98,7 @@ disqusShortname = ""
       url = "projects/cv and cover letter"
 
     [[params.tiles.showcase]]
-      title = "Case Studies and Models"
+      title = "Financial Models and Case Studies"
       subtitle = "Equity Valuation, Stock Pitches, Thematic Investing"
       image = "pic02.jpg"
       url = "projects/financial cases and models/index的副本.html"
