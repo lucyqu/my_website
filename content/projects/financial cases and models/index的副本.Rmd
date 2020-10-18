@@ -1,0 +1,108 @@
+
+```{r, setup, include=FALSE}
+knitr::opts_chunk$set(
+  message = FALSE, 
+  warning = FALSE, 
+  tidy=FALSE,     # display code as typed
+  size="small")   # slightly smaller font for code
+options(digits = 3)
+
+# default figure size
+knitr::opts_chunk$set(
+  fig.width=6.75, 
+  fig.height=6.75,
+  fig.align = "center"
+)
+```
+
+
+```{r load-libraries, warning=FALSE, message=FALSE, echo=FALSE}
+library(tidyverse)  # Load ggplot2, dplyr, and all the other tidyverse packages
+library(here)
+```
+
+
+# Project 1: Financial Modelling on New Oreiental (NYSE:EDU) 
+
+## Step 1 - Revenue and Margin Forecasting
+```{r , echo=FALSE, out.width="45%"}
+knitr::include_graphics(here::here("./content/projects/financial cases and models/NO-1.jpeg"), error = FALSE)
+```
+
+## Step 2 - ASP and Volume Forecasting
+```{r , echo=FALSE, out.width="45%"}
+knitr::include_graphics(here::here("./content/projects/financial cases and models/NO-2.jpeg"), error = FALSE)
+```
+
+
+## Step 3 - Comps Sheet Built-up
+```{r , echo=FALSE, out.width="45%"}
+knitr::include_graphics(here::here("./content/projects/financial cases and models/NO-3.jpeg"), error = FALSE)
+```
+
+## Step 4 - SOTP model finalization
+```{r , echo=FALSE, out.width="45%"}
+knitr::include_graphics(here::here("./content/projects/financial cases and models/NO-4.jpeg"), error = FALSE)
+```
+
+
+## Step 5 - Presentation Deck
+```{r , echo=FALSE, out.width="70%"}
+knitr::include_graphics(here::here("./content/projects/financial cases and models/nod-1.png"), error = FALSE)
+```
+
+## 
+```{r , echo=FALSE, out.width="70%"}
+knitr::include_graphics(here::here("./content/projects/financial cases and models/nod-2.png"), error = FALSE)
+```
+
+## 
+```{r , echo=FALSE, out.width="70%"}
+knitr::include_graphics(here::here("./content/projects/financial cases and models/nod-3.png"), error = FALSE)
+```
+
+## 
+```{r , echo=FALSE, out.width="70%"}
+knitr::include_graphics(here::here("./content/projects/financial cases and models/nod-4.png"), error = FALSE)
+```
+
+## 
+```{r , echo=FALSE, out.width="70%"}
+knitr::include_graphics(here::here("./content/projects/financial cases and models/nod-5.png"), error = FALSE)
+```
+
+
+
+
+
+# Project 2: Case Study on Soitec Equity Valuation (FP:SOC) 
+
+## Step 1 - Income Statement Forecasting
+```{r , echo=FALSE, out.width="45%"}
+knitr::include_graphics(here::here("./content/projects/financial cases and models/S-1.jpeg"), error = FALSE)
+```
+
+## Step 2 - BS Forecasting
+```{r , echo=FALSE, out.width="45%"}
+knitr::include_graphics(here::here("./content/projects/financial cases and models/S-2.jpeg"), error = FALSE)
+```
+
+## Step 3 - PPE Schedule Projection
+```{r , echo=FALSE, out.width="45%"}
+knitr::include_graphics(here::here("./content/projects/financial cases and models/S-3.jpeg"), error = FALSE)
+```
+
+## Step 4 - Historical Valuation Range
+```{r , echo=FALSE, out.width="45%"}
+knitr::include_graphics(here::here("./content/projects/financial cases and models/S-4.jpeg"), error = FALSE)
+```
+
+## Step 5 - Comp Sheet Build up
+```{r , echo=FALSE, out.width="45%"}
+knitr::include_graphics(here::here("./content/projects/financial cases and models/S-5.jpeg"), error = FALSE)
+```
+
+## Step 6 - Case Write-up
+```{r , echo=FALSE, out.width="60%"}
+knitr::include_graphics(here::here("./content/projects/financial cases and models/S-10.jpeg"), error = FALSE)
+```
