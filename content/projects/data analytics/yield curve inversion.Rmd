@@ -1,0 +1,226 @@
+---
+title: "Yield Curve Inversion"
+author: "Lucy Qu"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: flatly
+    highlight: zenburn
+    number_sections: yes
+    toc: yes
+    toc_float: yes
+    code_folding: show
+---
+
+
+```{r, setup, echo=FALSE}
+knitr::opts_chunk$set(
+  message = FALSE, 
+  warning = FALSE, 
+  tidy=FALSE,     # display code as typed
+  size="small")   # slightly smaller font for code
+options(digits = 3)
+
+# default figure size
+knitr::opts_chunk$set(
+  fig.width=6.75, 
+  fig.height=6.75,
+  fig.align = "center"
+)
+```
+
+
+```{r load-libraries, echo=FALSE}
+library(tidyverse)  # Load ggplot2, dplyr, and all the other tidyverse packages
+library(mosaic)
+library(ggthemes)
+library(GGally)
+library(readxl)
+library(here)
+library(skimr)
+library(janitor)
+library(broom)
+library(tidyquant)
+library(infer)
+library(openintro)
+library(tidyquant)
+```
+
+
+
+Every so often, we hear warnings from commentators on the "inverted yield curve" and its predictive power with respect to recessions and many of them think that, [*Yield curve inversion is viewed as a harbinger of recession*](https://www.bloomberg.com/news/articles/2019-08-14/u-k-yield-curve-inverts-for-first-time-since-financial-crisis). In our case we will look at US data and use the [FRED database](https://fred.stlouisfed.org/) to download historical yield curve rates, and plot the yield curves since 1999 to see *when and whether the yield curves have flattened.*
+
+
+
+```{r get_rates, warning=FALSE, echo = FALSE}
+# First, we will use the `tidyquant` package to download monthly rates for different durations. 
+# Get a list of FRED codes for US rates and US yield curve; choose monthly frequency
+# to see, eg., the 3-month T-bill https://fred.stlouisfed.org/series/TB3MS
+tickers <- c('TB3MS', # 3-month Treasury bill (or T-bill)
+             'TB6MS', # 6-month
+             'GS1',   # 1-year
+             'GS2',   # 2-year, etc....
+             'GS3',
+             'GS5',
+             'GS7',
+             'GS10',
+             'GS20',
+             'GS30')  #.... all the way to the 30-year rate
+
+# Turn  FRED codes to human readable variables
+myvars <- c('3-Month Treasury Bill',
+            '6-Month Treasury Bill',
+            '1-Year Treasury Rate',
+            '2-Year Treasury Rate',
+            '3-Year Treasury Rate',
+            '5-Year Treasury Rate',
+            '7-Year Treasury Rate',
+            '10-Year Treasury Rate',
+            '20-Year Treasury Rate',
+            '30-Year Treasury Rate')
+
+maturity <- c('3m', '6m', '1y', '2y','3y','5y','7y','10y','20y','30y')
+
+# by default R will sort these maturities alphabetically; but since we want
+# to keep them in that exact order, we recast maturity as a factor 
+# or categorical variable, with the levels defined as we want
+maturity <- factor(maturity, levels = maturity)
+
+# Create a lookup dataset
+mylookup<-data.frame(symbol=tickers,var=myvars, maturity=maturity)
+# Take a look:
+mylookup %>% 
+  knitr::kable()
+
+df <- tickers %>% tidyquant::tq_get(get="economic.data", 
+                   from="1960-01-01")   # start from January 1960
+
+glimpse(df)
+```
+
+
+```{r join_data, warning=FALSE, echo=FALSE}
+yield_curve <-left_join(df,mylookup,by="symbol") 
+```
+
+
+
+# Horizontal Trend
+
+As most of us acknowledge, the yield level could be a good demonstrator of the prevailing economics and finanical markets. Whereas a suddenly dropping yield may indicate a widespread panic leading investors flocking into the T-bills and bonds market, a rising yield may indicate a recent OMO transaction or a USD appreciation. Here, we are trying to look at the yields on US rates by duration over time so that we may able to link the major market events with the movement of the rates along time. 
+
+
+## Yields on US rates by duration since 1960
+First, we looked at the the yields on US rates by duration since 1960: 
+
+```{r yield_curve_1, echo=TRUE, out.width="100%"}
+
+yield_curve %>%
+  ggplot(aes(x = date, y = price, color = maturity)) +
+  geom_line(alpha = 0.3) +
+  facet_wrap(~ maturity, ncol = 2) +
+  theme_bw() + 
+  labs(title = "Yields on U.S. Treasury rates by durations since 1960", caption = "Source: Fed", x = "", y = "") +
+  theme(legend.position = "none")
+
+```
+We found that: Yields with different maturities (the short term, mid term, and long terms rates) are generally following the similar time patterns and show positive correlation with each other; The volatility of short term rates are higher than that of the longer term rates. 
+
+# Vertical Trend
+
+Then, we compared the yields with different durations on the same axis to view the vertical structure of the yields: 
+
+## Monthly yields on US rates by duration since 1999 on a year-by-year basis
+
+```{r yield_curve_2, echo=TRUE, out.width="100%"}
+
+glimpse(yield_curve)
+
+yield_curve %>%
+  mutate(year_of_maturity = year(date), month_of_maturity = month(date)) %>%
+  filter(year_of_maturity >= 1999) %>%
+  ggplot(aes(x = maturity, y = price, color = year_of_maturity, group = month_of_maturity)) +
+  geom_line(alpha = 1) +
+  facet_wrap(~ year_of_maturity, ncol = 4) +
+  theme_bw() + 
+  labs(title = "Monthly yields on US rates by duration since 1999 on a year-by-year basis", caption = "Source: Fed", x = "Maturity", y = "Yield (%)") +
+  theme(legend.position = "none")
+
+
+```
+
+We found that: Whereas the upward sloping structure tended to be quite obvious in 1999, the slope has been crucially reduced since year 2014, and till 2020, the yield curve is already quite flat. Although the long term yields are still larger than the mid term yield, some of the short term yileds (3,6 month bill rates) has already exceeded that for the 3, 5,7 year rates, successfully proving the existence of the inverted yield curve. 
+
+
+# Yield Spread 
+
+## Yield spread between 3-month and 10-year yield T assets
+
+To further quantify the aforementioned phenomenon where the short term rates exceed some of the long term rates, we further demonstrated the yield spread which is the yield difference between the 3-month and 10-year yields T asset. *A negative yield spread would be a indicator of the inverted yield curve.*
+
+First, we plotted the yields for the two maturities: 
+
+```{r yield_curve_3, echo=TRUE, out.width="100%"}
+
+yield_curve %>%
+  filter(maturity %in% c("3m","10y"), year(date) >= 1999) %>%
+  ggplot(aes(x = date, y = price, color = maturity, group = maturity)) +
+  geom_line(alpha = 0.5) +
+  theme_bw() +
+  theme(legend.text = element_text(),
+        legend.position = "bottom") +
+  labs(title = "Yields on 3-month and 10-year US Treasury rates since 1999", 
+       x = "", 
+       y = "%", 
+       caption = "Source: St. Louis FRED")
+
+```
+Second, we reorganized the dataframe to create the spread between the two maturities:
+
+```{r yield_curve_4, echo = TRUE, out.width="100%"}
+
+yield_curve_final <- yield_curve %>% 
+  filter((maturity == "3m" | maturity == "10y")) %>% 
+  select(c("date","price","var")) %>%
+  pivot_wider(names_from = "var", values_from = "price") %>% # To create a 3-m and 10-y price for each dates
+  mutate(difference=`10-Year Treasury Rate` - `3-Month Treasury Bill`) %>% # create the difference
+  mutate(positive_difference = ifelse(difference>0, difference, 0)) %>% # for further plotting the riboon
+  mutate(negative_difference = ifelse(difference<0, difference, 0)) # for further plotting the riboon
+
+glimpse(yield_curve_final)
+```
+
+Then, we want to compare the positive yield spread with the recession sessions to see their correlations:
+
+```{r setup_US-recessions,echo=FALSE, warning=FALSE}
+
+# get US recession dates after 1946 from Wikipedia 
+# https://en.wikipedia.org/wiki/List_of_recessions_in_the_United_States
+
+recessions <- tibble(
+  from = c("1948-11-01", "1953-07-01", "1957-08-01", "1960-04-01", "1969-12-01", "1973-11-01", "1980-01-01","1981-07-01", "1990-07-01", "2001-03-01", "2007-12-01"),  
+  to = c("1949-10-01", "1954-05-01", "1958-04-01", "1961-02-01", "1970-11-01", "1975-03-01", "1980-07-01", "1982-11-01", "1991-03-01", "2001-11-01", "2009-06-01") 
+  )  %>% 
+  mutate(From = ymd(from), 
+         To=ymd(to),
+         duration_days = To-From)
+
+recessions
+```
+
+```{r yield_curve_5, echo = TRUE, out.width="100%"}
+ggplot(yield_curve_final, aes(x=date, y=difference)) +
+  geom_line() +
+  labs(y = 'Difference (10 year-3 month) yield in %', title = 'Yield Curve Inversion: 10-year minus 3-month U.S. Treasury Rates', 
+      caption = "Source: St. Louis Federal Reserve Economic Database (FRED)", 
+      subtitle = "Difference in % points, monthly averages. \nShaded areas correspond to recessions", x="") +
+  theme_bw() +
+  theme(plot.title = element_text(face = "bold"), legend.position = "none") +
+  geom_hline(yintercept=0,color="black") +
+  geom_rect(data=filter(recessions), inherit.aes=F, aes(xmin=From, xmax=To, ymin=-Inf, ymax=+Inf), fill='grey', alpha=0.7) +
+  geom_ribbon(aes(ymin = 0, ymax = positive_difference), fill = "red", alpha = 0.3) +
+  geom_ribbon(aes(ymin = negative_difference, ymax = 0), fill = "blue", alpha = 0.3)
+
+```
+
+We found in most of the cases the nagative yield spread showed as an early signal for the recession (i.e. 1969,1979,1999). As the yield spread turns negative and the yield curve also seems to flatten for 2019, we may reasonably predict for a coming recession for the year ahead. 

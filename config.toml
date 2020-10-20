@@ -113,7 +113,7 @@ disqusShortname = ""
       title = "Data Analytics "
       subtitle = "R workfiles"
       image = "pic04.jpg"
-      url = "blogs/ipsum"
+      url = "projects/data analytics/yield-curve-inversion.html"
 
 
   [params.blog]
